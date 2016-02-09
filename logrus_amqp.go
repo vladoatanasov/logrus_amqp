@@ -96,3 +96,15 @@ func getBytes(key interface{}) ([]byte, error) {
 	}
 	return buf.Bytes(), nil
 }
+
+// Levels is available logging levels.
+func (hook *AMQPHook) Levels() []logrus.Level {
+	return []logrus.Level{
+		logrus.PanicLevel,
+		logrus.FatalLevel,
+		logrus.ErrorLevel,
+		logrus.WarnLevel,
+		logrus.InfoLevel,
+		logrus.DebugLevel,
+	}
+}
