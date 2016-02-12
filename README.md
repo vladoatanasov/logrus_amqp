@@ -13,7 +13,7 @@ import (
 func main() {
 	log := logrus.New()
   
-  hook := logrus_amqp.NewAMQPHook("127.0.0.1:5672", "guest", "guest", "exchange-rabbitmq", "routing-key")
+  	hook := logrus_amqp.NewAMQPHook("127.0.0.1:5672", "guest", "guest", "exchange-rabbitmq", "routing-key")
 	log.Hooks.Add(hook)
 	
 }
