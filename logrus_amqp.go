@@ -14,6 +14,7 @@ type AMQPHook struct {
 	Exchange     string
 	ExchangeType string
 	RoutingKey   string
+	VirtualHost  string
 	Mandatory    bool
 	Immediate    bool
 	Durable      bool
@@ -23,22 +24,27 @@ type AMQPHook struct {
 }
 
 func NewAMQPHook(server, username, password, exchange, routingKey string) *AMQPHook {
+	return NewAMQPHookWithType(server, username, password, exchange, "direct", "", routingKey)
+}
+
+func NewAMQPHookWithType(server, username, password, exchange, exchangeType, virtualHost, routingKey string) *AMQPHook {
 	hook := AMQPHook{}
 
 	hook.AMQPServer = server
 	hook.Username = username
 	hook.Password = password
 	hook.Exchange = exchange
-	hook.ExchangeType = "direct"
+	hook.ExchangeType = exchangeType
 	hook.Durable = true
 	hook.RoutingKey = routingKey
+	hook.VirtualHost = virtualHost
 
 	return &hook
 }
 
 // Fire is called when an event should be sent to the message broker
 func (hook *AMQPHook) Fire(entry *logrus.Entry) error {
-	dialURL := fmt.Sprintf("amqp://%s:%s@%s/", hook.Username, hook.Password, hook.AMQPServer)
+	dialURL := fmt.Sprintf("amqp://%s:%s@%s/%s", hook.Username, hook.Password, hook.AMQPServer, hook.VirtualHost)
 	conn, err := amqp.Dial(dialURL)
 	if err != nil {
 		return err
