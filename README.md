@@ -14,6 +14,8 @@ func main() {
 	log := logrus.New()
   
   	hook := logrus_amqp.NewAMQPHook("127.0.0.1:5672", "guest", "guest", "exchange-rabbitmq", "routing-key")
+	// with virtual host
+	hook := logrus_amqp.NewAMQPHookWithType("127.0.0.1:5672", "guest", "guest", "exchange-rabbitmq", "virtualHost" "routing-key")
 	log.Hooks.Add(hook)
 	
 }
