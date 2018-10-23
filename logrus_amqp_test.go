@@ -45,12 +45,13 @@ func TestLevels(t *testing.T) {
 	levels := hook.Levels()
 
 	if assert.NotNil(t, levels) {
-		assert.Len(t, levels, 6)
+		assert.Len(t, levels, 7)
 		assert.Contains(t, levels, logrus.PanicLevel)
 		assert.Contains(t, levels, logrus.FatalLevel)
 		assert.Contains(t, levels, logrus.ErrorLevel)
 		assert.Contains(t, levels, logrus.WarnLevel)
 		assert.Contains(t, levels, logrus.InfoLevel)
 		assert.Contains(t, levels, logrus.DebugLevel)
+		assert.Contains(t, levels, logrus.TraceLevel)
 	}
 }
